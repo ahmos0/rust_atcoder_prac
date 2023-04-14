@@ -11,3 +11,7 @@ proconio = "0.4.3"
 [[bin]]
 name = "a"
 path = "src/a.rs"
+
+[[bin]]
+name = "b"
+path = "src/b.rs"
