@@ -12,7 +12,6 @@ fn main(){
         } else if i == 1{
             dp[i] = (h[i] - h[i-1]).abs();
         } else {
-            
             let a = (h[i-1] - h[i]).abs() + dp[i-1];
             let mut b = 0;
             if i == 2{
