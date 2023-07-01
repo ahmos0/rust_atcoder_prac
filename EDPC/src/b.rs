@@ -1,4 +1,3 @@
-// 解けてない
 use proconio::input;
 
 fn main() {
