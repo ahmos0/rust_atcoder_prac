@@ -1,6 +1,7 @@
 use proconio::input;
 use std::collections::HashMap;
 
+
 fn main() {
     input! {
         n: usize,
