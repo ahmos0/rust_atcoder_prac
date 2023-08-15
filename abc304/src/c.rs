@@ -1,29 +1,37 @@
-use petgraph::graph::{NodeIndex, UnGraph};
-use proconio::input;
 
+use proconio::input;
+use std::collections::VecDeque;
 fn main() {
     input! {
         n: usize,
-        m: usize,
-        v: [(usize, usize); m],
-        c: [usize; n]
+        d: i32,
+        b: [(i32, i32); n]
     }
 
-    let edges: Vec<(usize, usize)> = v.iter().map(|&(a, b)| (a - 1, b - 1)).collect();
-
-    let mut g = UnGraph::<(), ()>::new_undirected();
-    let nodes: Vec<NodeIndex> = (0..n).map(|_| g.add_node(())).collect();
-    for &(a, b) in &edges {
-        g.add_edge(nodes[a], nodes[b], ());
-    }
-
-    for &(a, b) in &v {
-        let node_a = nodes[a - 1];
-        let node_b = nodes[b - 1];
-        if g.find_edge(node_a, node_b).is_some() {
-            println!("Edge ({}, {}) exists", a, b);
-        } else {
-            println!("Edge ({}, {}) does not exist", a, b);
+    let mut graph: Vec<Vec<bool>> = vec![vec![false; n]; n];
+    for i in 0..n {
+        for j in 0..n {
+            if (b[i].0 - b[j].0).pow(2) + (b[i].1 - b[j].1).pow(2) <= d.pow(2) {
+                graph[i][j] = true;
+            }
         }
+    }
+
+    let mut ans: Vec<bool> = vec![false; n];
+    ans[0] = true;
+    let mut que = VecDeque::new();
+    que.push_back(0);
+
+    while let Some(q) = que.pop_front() {
+        for i in 0..n {
+            if graph[q][i] && !ans[i] {
+                ans[i] = true;
+                que.push_back(i);
+            }
+        }
+    }
+
+    for a in ans {
+        println!("{}", if a { "Yes" } else { "No" });
     }
 }
