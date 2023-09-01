@@ -1,3 +1,8 @@
+use proconio::input;
+
 fn main() {
-    unimplemented!();
+    input! {
+        s: String
+    }
+    let mut s_c: Vec<char> = s.chars().collect();
 }

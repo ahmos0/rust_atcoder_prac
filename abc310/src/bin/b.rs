@@ -1,39 +1,35 @@
 use proconio::input;
+
 fn main() {
     input! {
-        n:usize,
+        n: usize,
         m: usize,
+        a: [[usize; m]; n]
     }
-    let mut c = 0;
-    let mut arr1: [i128; 200] = [0; 200];
-    let mut arr2: [i128; 200] = [0; 200];
-    let mut tmp1 = 0;
-    let mut tmp2 = 0;
-    for i in 0..n{
-        input!{
-            p: i128,
-            c: usize
-        }
-        for j in 0..c{
-            if i == 0{
-                input! {
-                    a : i128
+
+    let mut ans = 0;
+
+    for i in 0..n {
+        for j in i + 1..n {
+            let mut flag = false;
+            for k in 0..m {
+                let mut found = false;
+                for l in 0..n - 1 {
+                    if (a[k][l] == i + 1 && a[k][l + 1] == j + 1) || (a[k][l] == j + 1 && a[k][l + 1] == i + 1) {
+                        found = true;
+                        break;
+                    }
                 }
-                arr1[j] =  a;
-            } else {
-                input! {
-                    a : i128
+                if !found {
+                    flag = true;
+                    break;
                 }
-                arr2[j] = a;
             }
-        }
-        if i == 0{
-            tmp1 = c;
-        }
-        if i != 0{
-            for j in 0..c{
-                
+            if !flag {
+                ans += 1;
             }
         }
     }
+
+    println!("{}", ans);
 }
